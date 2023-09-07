@@ -39,21 +39,100 @@ def sign_up():
 
 class Chatbot:
     def __init__(self):
-        openai.api_key = os.getenv("OPEN AI API")
+        openai.api_key = os.getenv("OPEN AI KEY")
 
 
     def get_response(self, user_input):
-        # response = openai.ChatCompletion.create(
-        #     model="text-davinci-003",
-        #     prompt = user_input,
-        #     max_tokens = 3000,
-        #     temprature = 0.5
-        # ).choices[0].text
+        # messages = [
+        #     {"role": "system", "content": "You are a helpful assistant."},
+        # ]
+        # messages.append({"role": "user", "content": user_input})
+        # chat = openai.ChatCompletion.create(
+        #     model="gpt-3.5-turbo",
+        #     messages=messages,
+        #     # prompt = user_input,
+        #     max_tokens=1000,
+        #     temperature=0.5
+        # )
+        # response = chat.choices[0].message.content
         response = ""
         if user_input == "How are you":
             response = "I am fine!\n How are you"
         return response
 
+
+
+def typewriter_text(text):
+    typewriter_style = f"""
+    <style>
+        /* Define the typing animation */
+        @keyframes typing {{
+            from {{ width: 0; }}
+            to {{ width: 100%; }}
+        }}
+
+        /* Define a blinking cursor animation */
+        @keyframes blink {{
+            50% {{ border-color: transparent; }}
+        }}
+
+        /* Apply the animation to the text */
+        .typewriter-container {{
+            /*white-space: nowrap; Prevent text from wrapping */
+            /*overflow: hidden;   /* Hide overflow */
+            border-right: 2px solid #000; /* Add a cursor effect */
+            animation: typing 3s steps(40), blink 1s step-end 1s; /* Adjust duration and steps */
+            color: rgb(199, 235, 255);
+            background-color: rgb(23, 45, 67);
+            border-radius: 13px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }}
+    </style>
+    """
+
+    typewriter_text = f'<p class="typewriter-container">{text}</p>'
+    return typewriter_style + typewriter_text
+
+
+def input_at_bottom():
+    at_bottom_style = f"""
+    <style>
+        
+       /*.css-10trblm {{text - align: center;}}*/
+        
+        body {{
+            height: 100vh; /* Set the body height to 100% of the viewport height */
+            margin: 0; /* Remove default body margin */
+        }}
+        
+        #sticky-container {{
+            position: relative;
+            height: 100%; /* Set the height of the container to 100% of the viewport height */
+        }}
+        
+        .input {{
+            min-height: 50px;
+            width: 58%;
+            position: fixed;
+            bottom: 0;
+            background-color: #333;
+            padding: 10px;
+            z-index: 999;
+            border:0px solid white;
+            border-radius:13px;
+            text-color: #F5F5F5
+            caret-color: rgb(250, 250, 250);
+            color: rgb(250, 250, 250);
+            padding-bottom: 10px;
+            outline: none;
+                        
+            }}
+    
+    </style>
+    """
+    # input_style = f'<textarea class ="input" type="text" placeholder="Send a Message" >'
+    input_style = f'{at_bottom_style}\n<textarea class="input" type="text" placeholder="Send a Message"></textarea>'
+    return input_style
 
 if __name__ == "__main__":
     chatbot = Chatbot()
