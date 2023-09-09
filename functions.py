@@ -56,8 +56,8 @@ class Chatbot:
         # )
         # response = chat.choices[0].message.content
         response = ""
-        if user_input == "How are you":
-            response = "I am fine!\n How are you"
+        if user_input == "asdf":
+            response = "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
         return response
 
 
@@ -77,7 +77,7 @@ def typewriter_text(text):
         }}
 
         /* Apply the animation to the text */
-        .typewriter-container {{
+        .typewriter {{
             /*white-space: nowrap; Prevent text from wrapping */
             /*overflow: hidden;   /* Hide overflow */
             border-right: 2px solid #000; /* Add a cursor effect */
@@ -90,26 +90,30 @@ def typewriter_text(text):
     </style>
     """
 
-    typewriter_text = f'<p class="typewriter-container">{text}</p>'
+    typewriter_text = f'<p class="typewriter">{text}</p>'
     return typewriter_style + typewriter_text
 
 
 def input_at_bottom():
     at_bottom_style = f"""
+    <html>
+    <form>
+    <div>
+        <label for="user-input">User Input</label><br>
+        <input type="text" name = "UserInput"
+    </div> 
+    </div>
+        <button type= "submit">Submit<button>
+    </form>
+    </html>
+
+    form.addEventListener('submit', (e) => 
+    {{
+        e.preventDefault();
+        const fd = new FormData(form);
+        console.log(fd)   
+    }}
     <style>
-        
-       /*.css-10trblm {{text - align: center;}}*/
-        
-        body {{
-            height: 100vh; /* Set the body height to 100% of the viewport height */
-            margin: 0; /* Remove default body margin */
-        }}
-        
-        #sticky-container {{
-            position: relative;
-            height: 100%; /* Set the height of the container to 100% of the viewport height */
-        }}
-        
         .input {{
             min-height: 50px;
             width: 58%;
@@ -127,6 +131,10 @@ def input_at_bottom():
             outline: none;
                         
             }}
+        .st-aj{{
+        position: fixed;
+        bottom: 0;
+        }}
     
     </style>
     """
