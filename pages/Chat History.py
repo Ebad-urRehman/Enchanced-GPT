@@ -4,18 +4,19 @@ import json
 
 
 files_path = f"files/history"
-
+# extracting all files from directory filepath
 files = (glob.glob(f"{files_path}/*.json"))
 radio_buttons = []
+# formatting the names of file in readable way DD-MM-YY
 for file in files:
     formatted_path = file.replace("\\", "/")
     formatted_name = file[14:-5]
     radio_buttons.append(formatted_name)
-print(radio_buttons)
+
 selection = st.sidebar.radio("Chat HISTORY", radio_buttons)
-print(files)
 
 total_files = len(files)
+# loading selected file form history files and displaying data
 try:
     for i in range(total_files):
         if selection == radio_buttons[i]:

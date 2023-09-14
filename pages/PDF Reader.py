@@ -1,20 +1,21 @@
 import nltk
 import streamlit as st
-# import nltk
 from PyPDF2 import PdfReader
 from nltk.tokenize import word_tokenize
 nltk.download('punkt')
 import functions
 st.title("PDF Reader")
-
+# if pdf file uploader button is not clicked
 if 'button_clicked' not in st.session_state:
     st.session_state.button_clicked = False
     st.session_state.old_responses = []
+# total number of questions asked by user in a chat
 i = 0
 file = st.file_uploader("Upload a PDF file and ask Specific Questions about Information in PDF")
 if file:
+    # reading pdf file
     reader = PdfReader(file)
-    # all_pages = [reader.pages[i] for i in range(len(reader.pages))]
+    # getting data from pdf with the help of reader.pages function
     pdf_data_list = [page.extract_text() for page in reader.pages]
 
     if st.button("Show PDF TEXT"):
@@ -22,15 +23,17 @@ if file:
         pdf_data = ""
     if st.session_state.button_clicked:
         pdf_data = ""
+        # storing all pages data in a single string
         for page in pdf_data_list:
             pdf_data += page
-            # st.write(page)
         st.write(pdf_data)
+        # giving hint to chatbot
         pdf_data += "Please provide answers about given pdf : question : "
+        # finding total tokens so they can't exceed 8000
         tokenized_text = word_tokenize(pdf_data)
         tokens_pdf = len(tokenized_text)
         st.write(tokens_pdf)
-        if(tokens_pdf < 7000):
+        if tokens_pdf < 7000:
             st.markdown(f"""
             <style>
             .stTextArea{{
@@ -52,7 +55,6 @@ if file:
             user_input = st.text_area("", placeholder="Say a Question About PDF", key="textarea")
             if user_input != "":
                 pdf_data += user_input
-            # st.text(pdf_data)
             tokenized_text_total = word_tokenize(pdf_data)
             total_tokens = len(tokenized_text_total)
             if total_tokens > 8000:
@@ -64,6 +66,7 @@ if file:
 
                 chatbot = functions.Chatbot()
                 response = chatbot.get_response(pdf_data, messages)
+                # it auto generates summary of PDF file
                 st.header("Summary of PDF File")
                 st.session_state.old_responses.append({
                     f"response_no": i,
@@ -73,8 +76,7 @@ if file:
                 for old_response in st.session_state.old_responses:
                     st.info(old_response["user_input"])
                     st.write(old_response["response"])
-                    # st.info(user_input)
-                    # st.write(response)
                 i = i + 1
         else:
+            # if pdf file > 7000
             st.warning("Please Enter a smaller pdf file")

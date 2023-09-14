@@ -1,15 +1,16 @@
 import os
-import openai
 import streamlit as st
 import functions
 import time
 import json
 import glob
-# i is denoting no of responses here
+# i is denoting no of total number of responses here in a day
 i = 0
+# current_page_responses stores data of responses in an acive chat
+# used to preserve previous responses during a chat
 if 'current_page_responses' not in st.session_state:
     st.session_state.current_page_responses = []
-
+# time variable to show unique time for each response while in a chat
 if 'time_list' not in st.session_state:
     st.session_state.time_list = []
 # History data frame to keep track of older responses and storing them in files
@@ -38,8 +39,6 @@ else:
     history_file_path = f"files/history/{date}.json"
     if not os.path.exists(history_file_path):
         with open(history_file_path, 'w', encoding='utf-8') as json_file:
-            # empty_data = {}
-            # json.dump(empty_data, json_file)
             pass
     elif os.path.exists(history_file_path) and os.path.getsize(history_file_path) != 0:
         with open(history_file_path, 'r', encoding='utf-8') as json_file:
@@ -49,6 +48,7 @@ else:
             else:
                 try:
                     json_data = json.loads(file_content)
+                    # if there are previous reponses in a chat it updates the number to them
                     i = len(json_data)
                     history_dataframe = json_data
                 except json.JSONDecodeError as e:
@@ -76,25 +76,17 @@ typewriter_chat_default = functions.typewriter_text(chat_default_text)
 st.markdown(typewriter_chat_default, unsafe_allow_html=True)
 user_input = ""
 
+# extracting file paths for each json history data file
 files_path = f"../files/history"
 json_history_files = glob.glob(f"{files_path}/*.json")
 json_history_files = [file.replace("/", "\\") for file in json_history_files]
 # st.text()
 
-
-# if os.path.exists(history_file_path):
-#     for i in range(len(history_dataframe)):
-#         st.markdown(f"""{full_name}""", unsafe_allow_html=True)
-#         st.info(history_dataframe[i]["user_input"])
-#         st.markdown(f"Enhanced GPT", unsafe_allow_html=True)
-#         st.write(history_dataframe[i]["chat_response"])
-#         st.markdown(f"<p style='text-align: right;'>{history_dataframe[i][f'time']}</p>", unsafe_allow_html=True)
-
 while True:
     # updating time
     formatted_time = time.strftime("%I:%M %p", current_time)
 
-    # creating input box
+    # creating input box styling
     st.markdown(f"""
     <style>
     .stTextArea{{
@@ -112,7 +104,7 @@ while True:
             }}
         </style>
     """, unsafe_allow_html=True)
-
+    # creating input box
     if 'user_input' not in st.session_state:
         st.session_state.user_input = {}
     user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
@@ -120,10 +112,6 @@ while True:
 
     # if we get some input from the user
     if user_input != "":
-        # st.markdown(f"""{full_name}""", unsafe_allow_html=True)
-        # st.info(user_input)
-        # st.markdown(f"<p style='text-align: right;'>{formatted_time}</p>", unsafe_allow_html=True)
-
         # creating instance of class chatbot
         chat = functions.Chatbot()
         # assigning a role
@@ -132,10 +120,6 @@ while True:
         ]
         # getting response of user input
         chat_response = chat.get_response(user_input, messages)
-        # typewriter_response = functions.typewriter_text(chat_response)
-        # st.markdown("""Enhanced GPT""")
-        # st.markdown(typewriter_response, unsafe_allow_html=True)
-        # st.write(chat_response)
 
         # updating history dataframe
         history_dataframe.append({
@@ -146,7 +130,6 @@ while True:
             f"chat_response": chat_response
         })
 
-        # st.session_state.time_list.append(formatted_time)
 
         st.session_state.current_page_responses.append({
             f"time": f"{formatted_time}",
@@ -156,6 +139,8 @@ while True:
             f"chat_response": chat_response
         })
         st.session_state.time_list.append(history_dataframe[i][f'time'])
+        # j for keep track of old responses in active chat
+        # it is done because active chat lose its old responses when a new one is entered
         j = 0
         for response in st.session_state.current_page_responses:
             st.write(full_name)
@@ -165,6 +150,6 @@ while True:
             st.write(response["chat_response"])
             st.markdown(f"<p style='text-align: right;'>{st.session_state.time_list[j]}</p>", unsafe_allow_html=True)
             j = j + 1
-
+        # creating json history file and storing data in it
         functions.make_json_file(history_dataframe, history_file_path)
         i = i + 1

@@ -3,8 +3,9 @@ import openai
 import streamlit as st
 import json
 
+
+# function for sign up if signed up
 def sign_up():
-    # form = st.form("Sign in Form")
     with st.form("Sign in Form"):
         st.header("Sign up")
         col1, col2 = st.columns(2)
@@ -26,19 +27,19 @@ def sign_up():
                                                f"Last Name : {l_name}\n"
                                                f"Email : {email_ad}\n"
                                                f"day\mounth\year : {dob}"
-                            )
+                                               )
                             full_name = f"{f_name}{l_name}"
                     # storing data as a dictionary
                     user_data = [{
                         "full_name": f"{f_name}{l_name}",
-                            "f_name": f"{f_name}",
-                            "l_name": f"{l_name}",
-                            "email_ad": f"{email_ad}",
-                            "dob": f"{dob}"
-                        }]
+                        "f_name": f"{f_name}",
+                        "l_name": f"{l_name}",
+                        "email_ad": f"{email_ad}",
+                        "dob": f"{dob}"
+                    }]
                     user_data_path = f"files/account.json"
-                    #storing data in json file
-                    with open(user_data_path,'w') as json_file:
+                    # storing data in json file
+                    with open(user_data_path, 'w') as json_file:
                         json.dump(user_data, json_file, indent=4)
 
                     print(user_data)
@@ -48,18 +49,14 @@ def sign_up():
                     st.warning("Enter a valid Email Address")
             else:
                 st.warning("Please fill all required fields")
-        return [0, 0, 0, 0]
-
-
+        return
 
 
 class Chatbot:
     def __init__(self):
         openai.api_key = os.getenv("OPEN AI KEY")
 
-
     def get_response(self, user_input, messages):
-
         # messages.append({"role": "user", "content": user_input})
         # chat = openai.ChatCompletion.create(
         #     model="gpt-3.5-turbo",
@@ -73,7 +70,6 @@ class Chatbot:
         if user_input == "asdf":
             response = "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
         return response
-
 
 
 def typewriter_text(text):
@@ -105,7 +101,7 @@ def typewriter_text(text):
         }}
     </style>
     """
-
+    # combining typewriter text effect with our program text
     typewriter_text = f'<p class="typewriter">{text}</p>'
     return typewriter_style + typewriter_text
 
@@ -116,8 +112,4 @@ def make_json_file(dataframe, filename):
 
 
 if __name__ == "__main__":
-    chatbot = Chatbot()
-    response = chatbot.get_response("Hi How are you")
-    print(response)
-
-    s, g, d, c = sign_up()
+    pass
