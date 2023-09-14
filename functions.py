@@ -1,6 +1,7 @@
 import os
 import openai
 import streamlit as st
+import json
 
 def sign_up():
     # form = st.form("Sign in Form")
@@ -26,6 +27,21 @@ def sign_up():
                                                f"Email : {email_ad}\n"
                                                f"day\mounth\year : {dob}"
                             )
+                            full_name = f"{f_name}{l_name}"
+                    # storing data as a dictionary
+                    user_data = [{
+                        "full_name": f"{f_name}{l_name}",
+                            "f_name": f"{f_name}",
+                            "l_name": f"{l_name}",
+                            "email_ad": f"{email_ad}",
+                            "dob": f"{dob}"
+                        }]
+                    user_data_path = f"files/account.json"
+                    #storing data in json file
+                    with open(user_data_path,'w') as json_file:
+                        json.dump(user_data, json_file, indent=4)
+
+                    print(user_data)
                     return [f_name, l_name, email_ad, dob]
 
                 else:
@@ -42,10 +58,8 @@ class Chatbot:
         openai.api_key = os.getenv("OPEN AI KEY")
 
 
-    def get_response(self, user_input):
-        # messages = [
-        #     {"role": "system", "content": "You are a helpful assistant."},
-        # ]
+    def get_response(self, user_input, messages):
+
         # messages.append({"role": "user", "content": user_input})
         # chat = openai.ChatCompletion.create(
         #     model="gpt-3.5-turbo",
@@ -83,9 +97,11 @@ def typewriter_text(text):
             border-right: 2px solid #000; /* Add a cursor effect */
             animation: typing 3s steps(40), blink 1s step-end 1s; /* Adjust duration and steps */
             color: rgb(199, 235, 255);
-            background-color: rgb(23, 45, 67);
+            background-color: rgb(0, 51, 102);
             border-radius: 13px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-box-pack: justify;
+            justify-content: space-between;
         }}
     </style>
     """
@@ -94,55 +110,14 @@ def typewriter_text(text):
     return typewriter_style + typewriter_text
 
 
-def input_at_bottom():
-    at_bottom_style = f"""
-    <html>
-    <form>
-    <div>
-        <label for="user-input">User Input</label><br>
-        <input type="text" name = "UserInput"
-    </div> 
-    </div>
-        <button type= "submit">Submit<button>
-    </form>
-    </html>
+def make_json_file(dataframe, filename):
+    with open(filename, 'w') as json_file:
+        json.dump(dataframe, json_file, indent=4)
 
-    form.addEventListener('submit', (e) => 
-    {{
-        e.preventDefault();
-        const fd = new FormData(form);
-        console.log(fd)   
-    }}
-    <style>
-        .input {{
-            min-height: 50px;
-            width: 58%;
-            position: fixed;
-            bottom: 0;
-            background-color: #333;
-            padding: 10px;
-            z-index: 999;
-            border:0px solid white;
-            border-radius:13px;
-            text-color: #F5F5F5
-            caret-color: rgb(250, 250, 250);
-            color: rgb(250, 250, 250);
-            padding-bottom: 10px;
-            outline: none;
-                        
-            }}
-        .st-aj{{
-        position: fixed;
-        bottom: 0;
-        }}
-    
-    </style>
-    """
-    # input_style = f'<textarea class ="input" type="text" placeholder="Send a Message" >'
-    input_style = f'{at_bottom_style}\n<textarea class="input" type="text" placeholder="Send a Message"></textarea>'
-    return input_style
 
 if __name__ == "__main__":
     chatbot = Chatbot()
     response = chatbot.get_response("Hi How are you")
     print(response)
+
+    s, g, d, c = sign_up()
