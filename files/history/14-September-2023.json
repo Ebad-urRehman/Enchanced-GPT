@@ -313,5 +313,47 @@
         "response_no": 44,
         "user_input": "asdf",
         "chat_response": "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+    },
+    {
+        "time": "09:16 PM",
+        "date": "14 : September : 2023",
+        "response_no": 45,
+        "user_input": "asdf",
+        "chat_response": "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+    },
+    {
+        "time": "09:16 PM",
+        "date": "14 : September : 2023",
+        "response_no": 46,
+        "user_input": "asdf",
+        "chat_response": "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+    },
+    {
+        "time": "09:16 PM",
+        "date": "14 : September : 2023",
+        "response_no": 47,
+        "user_input": "asdf",
+        "chat_response": "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+    },
+    {
+        "time": "09:17 PM",
+        "date": "14 : September : 2023",
+        "response_no": 48,
+        "user_input": "asdf",
+        "chat_response": "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+    },
+    {
+        "time": "09:36 PM",
+        "date": "14 : September : 2023",
+        "response_no": 49,
+        "user_input": "what is a computer",
+        "chat_response": "A computer is an electronic device that is capable of receiving, processing, and storing data. It can perform various tasks, such as calculations, data manipulation, and running software programs. Computers consist of hardware components, such as a central processing unit (CPU), memory, storage devices, and input/output devices, as well as software that controls their operations. They are used in many different fields, including education, business, entertainment, and research."
+    },
+    {
+        "time": "09:37 PM",
+        "date": "14 : September : 2023",
+        "response_no": 50,
+        "user_input": "what is a machine",
+        "chat_response": "A machine is a device that uses mechanical power to perform a specific task or function. It typically consists of various components, such as gears, levers, pulleys, and motors, that work together to convert input energy into desired output energy. Machines can be simple, like a lever or a pulley, or complex, like a computer or an automobile. They are designed to make work easier, faster, or more efficient."
     }
 ]

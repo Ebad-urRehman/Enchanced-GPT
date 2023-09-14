@@ -67,13 +67,18 @@ else:
     st.markdown(f"<p style='text-align: right;'>{date}</p>", unsafe_allow_html=True)
     st.title("Enhanced GPT Model")
 # default text before chat
-dot_style = "&#x25CF"
-chat_default_text = f"{dot_style} Aslam u Alaikum!<br> {dot_style} I am Enhanced GPT<br> {dot_style} Write a " \
-                    f"Text and get an Answer Record a Question and get an Answer<br> {dot_style} " \
-                    f"I can read these Answers for you<br>"
+chat_default_text = f"""👋 Aslam u Alaikum!\n
+🛑 I am Enhanced GPT\n
+💻 Write a Text and get an Answer\n
+🎤 Record a Question and get an Answer\n
+🔈 I can read these Answers for you\n
+📒 Upload a PDF File and ask questions about it\n
+🔍 I can search information for you\n
+🙂 No need now to find specific information in a large file
+"""
 
-typewriter_chat_default = functions.typewriter_text(chat_default_text)
-st.markdown(typewriter_chat_default, unsafe_allow_html=True)
+# typewriter_chat_default = functions.typewriter_text(chat_default_text)
+st.info(chat_default_text)
 user_input = ""
 
 # extracting file paths for each json history data file

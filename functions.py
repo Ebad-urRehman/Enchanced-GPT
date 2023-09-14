@@ -57,18 +57,18 @@ class Chatbot:
         openai.api_key = os.getenv("OPEN AI KEY")
 
     def get_response(self, user_input, messages):
-        # messages.append({"role": "user", "content": user_input})
-        # chat = openai.ChatCompletion.create(
-        #     model="gpt-3.5-turbo",
-        #     messages=messages,
-        #     # prompt = user_input,
-        #     max_tokens=1000,
-        #     temperature=0.5
-        # )
-        # response = chat.choices[0].message.content
-        response = ""
-        if user_input == "asdf":
-            response = "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+        messages.append({"role": "user", "content": user_input})
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            # prompt = user_input,
+            max_tokens=1000,
+            temperature=0.5
+        )
+        response = chat.choices[0].message.content
+        # response = ""
+        # if user_input == "asdf":
+        #     response = "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
         return response
 
 
