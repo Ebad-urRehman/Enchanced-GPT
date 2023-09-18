@@ -65,5 +65,11 @@ Low temperature: The model is more likely to stick to what it has learned and pr
 
 ### How should I set the temperature parameter?
 Lower values for temperature result in more consistent outputs, while higher values generate more diverse and creative results. Select a temperature value based on the desired trade-off between coherence and creativity for your specific application.
+# Known BUGS
+🔴 .sttextarea key error
+
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/956dc8a4-e4d1-4ced-8dce-ecaf2ad0599b)
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/1bd5aba4-50bb-4d3b-90e8-4a49aad00120)
+
 
 ### ⏭️ This Project is Incomplete for now if there are any suggestions comment down please
