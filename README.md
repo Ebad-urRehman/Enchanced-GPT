@@ -25,5 +25,45 @@ When the sign in process complete user data is store in a dataframe then in the 
 
 Now the file exists thus sign in process is complete and user is now signed in.
 
+🙂 ### User can chat now
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/c30581c9-6a86-4066-8c4e-fad3401e68de)
 
 
+# Chat History.py
+In Main file History Dataframe is used to save history chats.
+It can do so by storing this record in a file named as DD-MM-YY.json format.
+Time module is used to get current day, mounth and year.
+then the history dataframe is stored in file DD-MM-YY.json file
+
+## Chat history.py get list of these files get there data and display them in form of radio options in sidebar.
+
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/4ccc34b3-69ae-40f0-a194-a3c436512b13)
+
+# PDF Reader.py
+This file has a browse button to upload a PDF file and ask questions about that file
+
+# The Reality of Backend
+I use open ai api key which is not for free.
+But if you make a new account you can get 5$ free trial which you can use to build your own chatbot.
+
+A chatbot file has been created in File 🗄️ Functions.py in which API key is given in constructor and a function called chatbot response is used to get response from chatgpt 3.5 turbo version you can see the details in code.
+
+## Important concepts
+
+## 🔴 Tokens
+Here is a breif explanation of tokens
+
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/07c6aa06-d617-49b3-a32f-fadf3c7ce045)
+
+You can say tokens are words for chatbot
+see details here : https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
+
+## 🔴 Temprature
+### Temprature ranges from 0 to 1
+High temperature: The model is more likely to produce a variety of words and generate novel, imaginative responses.
+Low temperature: The model is more likely to stick to what it has learned and provide more conservative, probable responses.
+
+### How should I set the temperature parameter?
+Lower values for temperature result in more consistent outputs, while higher values generate more diverse and creative results. Select a temperature value based on the desired trade-off between coherence and creativity for your specific application.
+
+### ⏭️ This Project is Incomplete for now if there are any suggestions comment down please
