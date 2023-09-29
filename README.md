@@ -71,5 +71,16 @@ Lower values for temperature result in more consistent outputs, while higher val
 ![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/956dc8a4-e4d1-4ced-8dce-ecaf2ad0599b)
 ![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/1bd5aba4-50bb-4d3b-90e8-4a49aad00120)
 
+## ▶️ Changes till 29/9/2023:
+Home page is now playground you can enter custom roles and change temprature and number of tokens now
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/b37843c0-5e4a-4d5a-b69a-f9fbcbaa4879)
 
+## ➡️ Image generation creation feature completed
+Check folder files/images for results
+## image editing have some problems for now 
+Its some sort of byte convertion issue as open ai function takes bytes object, or image location but I am trying to give it some Image after editing its size to match aspect ratio with open ai 
+
+![image](https://github.com/Ebad-urRehman/Enchanced-GPT/assets/125203236/a9ea50c9-66a6-433f-9bb5-4d0b4a91b855)
+
+if anyone has fix join discussions and comment
 ### ⏭️ This Project is Incomplete for now if there are any suggestions comment down please
