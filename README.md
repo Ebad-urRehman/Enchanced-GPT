@@ -84,3 +84,5 @@ Its some sort of byte convertion issue as open ai function takes bytes object, o
 
 if anyone has fix join discussions and comment
 ### ⏭️ This Project is Incomplete for now if there are any suggestions comment down please
+## JOIN DISCUSSIONS
+https://github.com/Ebad-urRehman/Enchanced-GPT/discussions
