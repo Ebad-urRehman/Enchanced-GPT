@@ -1,12 +1,5 @@
 [
     {
-        "time": "02:01 PM",
-        "date": "14 : September : 2023",
-        "response_no": 0,
-        "user_input": "write a hello world programm in python",
-        "chat_response": "Certainly! Here's a simple \"Hello, World!\" program in Python:\n\n```python\nprint(\"Hello, World!\")\n```\n\nTo run this program, save it with a \".py\" extension (e.g., hello_world.py), and then execute it using the Python interpreter. You should see the output \"Hello, World!\" displayed in the console."
-    },
-    {
         "time": "02:04 PM",
         "date": "14 : September : 2023",
         "response_no": 0,
