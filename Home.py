@@ -4,6 +4,7 @@ import functions
 import time
 import json
 import glob
+
 # i is denoting no of total number of responses here in a day
 i = 0
 # current_page_responses stores data of responses in an acive chat
@@ -22,6 +23,14 @@ month = time.strftime("%B", current_time)
 year = time.strftime("%Y", current_time)
 date = f"{day}-{month}-{year}"
 
+roles = ["Default Role", "Custom Role"]
+temperature = st.sidebar.slider("Temprature", 0.0, 1.0, 0.5, 0.01)
+number_of_tokens = st.sidebar.slider("Number of Tokens", 1000, 8000, 1000, 200)
+role_selection = st.sidebar.selectbox("Enter the role here", roles)
+if role_selection == "Default Role":
+    role ="You are a helpful assistant."
+if role_selection == "Custom Role":
+    role = st.sidebar.text_input("Assign a Role")
 # check if user is signed in it can be check by if there is a file named with account.json already created
 if not os.path.exists("files/account.json"):
     # calling function that takes user data and store in json file
@@ -121,10 +130,10 @@ while True:
         chat = functions.Chatbot()
         # assigning a role
         messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": f"{role}"},
         ]
         # getting response of user input
-        chat_response = chat.get_response(user_input, messages)
+        chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature)
 
         # updating history dataframe
         history_dataframe.append({
@@ -134,7 +143,6 @@ while True:
             f"user_input": user_input,
             f"chat_response": chat_response
         })
-
 
         st.session_state.current_page_responses.append({
             f"time": f"{formatted_time}",
