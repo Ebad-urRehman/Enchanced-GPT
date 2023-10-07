@@ -23,6 +23,7 @@ month = time.strftime("%B", current_time)
 year = time.strftime("%Y", current_time)
 date = f"{day}-{month}-{year}"
 
+# inputting a role from user
 roles = ["Default Role", "Custom Role"]
 temperature = st.sidebar.slider("Temprature", 0.0, 1.0, 0.5, 0.01)
 number_of_tokens = st.sidebar.slider("Number of Tokens", 1000, 8000, 1000, 200)
@@ -31,6 +32,7 @@ if role_selection == "Default Role":
     role ="You are a helpful assistant."
 if role_selection == "Custom Role":
     role = st.sidebar.text_input("Assign a Role")
+
 # check if user is signed in it can be check by if there is a file named with account.json already created
 if not os.path.exists("files/account.json"):
     # calling function that takes user data and store in json file
@@ -96,73 +98,73 @@ json_history_files = glob.glob(f"{files_path}/*.json")
 json_history_files = [file.replace("/", "\\") for file in json_history_files]
 # st.text()
 
-while True:
-    # updating time
-    formatted_time = time.strftime("%I:%M %p", current_time)
+# while True:
+# updating time
+formatted_time = time.strftime("%I:%M %p", current_time)
 
-    # creating input box styling
-    st.markdown(f"""
-    <style>
-    .stTextArea{{
-            position: fixed;
-            bottom: 0;
-            z-index: 3;
-            line-height: 9.6;
-            padding-bottom: 9rem;
-            caret-color: rgb(250, 250, 250);
-            color: rgb(250, 250, 250);
-            border:0px solid white;
-            border-right: 2px solid #000
-            padding: 0px;
-            max-height: 100px;
-            }}
-        </style>
-    """, unsafe_allow_html=True)
-    # creating input box
-    if 'user_input' not in st.session_state:
-        st.session_state.user_input = {}
-    user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
-    st.session_state.user_input[i] = user_input
+# creating input box styling
+st.markdown(f"""
+<style>
+.stTextArea{{
+        position: fixed;
+        bottom: 0;
+        z-index: 3;
+        line-height: 9.6;
+        padding-bottom: 9rem;
+        caret-color: rgb(250, 250, 250);
+        color: rgb(250, 250, 250);
+        border:0px solid white;
+        border-right: 2px solid #000
+        padding: 0px;
+        max-height: 100px;
+        }}
+    </style>
+""", unsafe_allow_html=True)
+# creating input box
+if 'user_input' not in st.session_state:
+    st.session_state.user_input = {}
+user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
+st.session_state.user_input[i] = user_input
 
-    # if we get some input from the user
-    if user_input != "":
-        # creating instance of class chatbot
-        chat = functions.Chatbot()
-        # assigning a role
-        messages = [
-            {"role": "system", "content": f"{role}"},
-        ]
-        # getting response of user input
-        chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature)
+# if we get some input from the user
+if user_input != "":
+    # creating instance of class chatbot
+    chat = functions.Chatbot()
+    # assigning a role
+    messages = [
+        {"role": "system", "content": f"{role}"},
+    ]
+    # getting response of user input
+    chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature)
 
-        # updating history dataframe
-        history_dataframe.append({
-            f"time": f"{formatted_time}",
-            f"date": f"{day} : {month} : {year}",
-            f"response_no": i,
-            f"user_input": user_input,
-            f"chat_response": chat_response
-        })
+    # updating history dataframe
+    history_dataframe.append({
+        f"time": f"{formatted_time}",
+        f"date": f"{day} : {month} : {year}",
+        f"response_no": i,
+        f"user_input": user_input,
+        f"chat_response": chat_response
+    })
 
-        st.session_state.current_page_responses.append({
-            f"time": f"{formatted_time}",
-            f"date": f"{day} : {month} : {year}",
-            f"response_no": st.session_state.current_page_responses,
-            f"user_input": user_input,
-            f"chat_response": chat_response
-        })
-        st.session_state.time_list.append(history_dataframe[i][f'time'])
-        # j for keep track of old responses in active chat
-        # it is done because active chat lose its old responses when a new one is entered
-        j = 0
-        for response in st.session_state.current_page_responses:
-            st.write(full_name)
-            user_i = response["user_input"]
-            st.info(user_i)
-            st.markdown("""Enhanced GPT""")
-            st.write(response["chat_response"])
-            st.markdown(f"<p style='text-align: right;'>{st.session_state.time_list[j]}</p>", unsafe_allow_html=True)
-            j = j + 1
-        # creating json history file and storing data in it
-        functions.make_json_file(history_dataframe, history_file_path)
-        i = i + 1
+    st.session_state.current_page_responses.append({
+        f"time": f"{formatted_time}",
+        f"date": f"{day} : {month} : {year}",
+        f"response_no": st.session_state.current_page_responses,
+        f"user_input": user_input,
+        f"chat_response": chat_response
+    })
+    st.session_state.time_list.append(history_dataframe[i][f'time'])
+    # j for keep track of old responses in active chat
+    # it is done because active chat lose its old responses when a new one is entered
+    j = 0
+    for response in st.session_state.current_page_responses:
+        st.write(full_name)
+        user_i = response["user_input"]
+        st.info(user_i)
+        st.markdown("""Enhanced GPT""")
+        st.write(response["chat_response"])
+        st.markdown(f"<p style='text-align: right;'>{st.session_state.time_list[j]}</p>", unsafe_allow_html=True)
+        j = j + 1
+    # creating json history file and storing data in it
+    functions.make_json_file(history_dataframe, history_file_path)
+    i = i + 1

@@ -65,7 +65,9 @@ if file:
                 ]
 
                 chatbot = functions.Chatbot()
-                response = chatbot.get_response(pdf_data, messages)
+                no_of_tokens = 8000
+                temp = 1
+                response = chatbot.get_response(pdf_data, messages, no_of_tokens, temp)
                 # it auto generates summary of PDF file
                 st.header("Summary of PDF File")
                 st.session_state.old_responses.append({

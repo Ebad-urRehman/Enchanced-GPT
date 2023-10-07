@@ -72,25 +72,25 @@ class Chatbot:
         #     response = "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
         return  response
     def get_image(self, user_input, size, no_of_images):
-        #     response = openai.Image.create(
-        #         prompt=user_input,
-        #         n=no_of_images,
-        #         size=size
-        #     )
-        # image_url = response['data'][0]['url']
-        # image_urls = [result['url'] for result in response['data']]
-        # image_urls = {"0":"https://oaidalleapiprodscus.blob.core.windows.net/private/org-7yMSDDPots0mp25LaesEBh5p/user-eJVeNouBg5vAW280BHorayK8/img-KulIRbr2KRdKWK0UUyo2Uc2q.png?st=2023-09-27T15%3A34%3A31Z&se=2023-09-27T17%3A34%3A31Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-26T23%3A43%3A09Z&ske=2023-09-27T23%3A43%3A09Z&sks=b&skv=2021-08-06&sig=wikUgj1ZXq9xROJo2uG8knQoi8ycuFE07P4y53zVL3E%3D"}
-        image_urls = [
-            "https://img.freepik.com/free-photo/luxurious-car-parked-highway-with-illuminated-headlight-sunset_181624-60607.jpg",
-            "https://img.freepik.com/premium-photo/bangkok-thailand-08082022-lamborghini-luxury-super-car-fast-sports-premium-lighting-background-3d-illustration_67092-1599.jpg"]
-        if user_input == "asdf":
-            st.write(image_urls)
+            response = openai.Image.create(
+                prompt=user_input,
+                n=no_of_images,
+                size=size
+            )
+            # image_url = response['data'][0]['url']
+            image_urls = [result['url'] for result in response['data']]
+            # image_urls = {"0":"https://oaidalleapiprodscus.blob.core.windows.net/private/org-7yMSDDPots0mp25LaesEBh5p/user-eJVeNouBg5vAW280BHorayK8/img-KulIRbr2KRdKWK0UUyo2Uc2q.png?st=2023-09-27T15%3A34%3A31Z&se=2023-09-27T17%3A34%3A31Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-26T23%3A43%3A09Z&ske=2023-09-27T23%3A43%3A09Z&sks=b&skv=2021-08-06&sig=wikUgj1ZXq9xROJo2uG8knQoi8ycuFE07P4y53zVL3E%3D"}
+            # image_urls = [
+            #     "https://img.freepik.com/free-photo/luxurious-car-parked-highway-with-illuminated-headlight-sunset_181624-60607.jpg",
+            #     "https://img.freepik.com/premium-photo/bangkok-thailand-08082022-lamborghini-luxury-super-car-fast-sports-premium-lighting-background-3d-illustration_67092-1599.jpg"]
+            # if user_input == "asdf":
+            #     st.write(image_urls)
             return image_urls
 
     def edit_image(self, org_image, masked_img, user_input, size, no_of_images):
         response = openai.Image.create_edit(
-            image=open(org_image, "rb"),
-            mask=open(masked_img, "rb"),
+            image=open(org_image),
+            mask=open(masked_img),
             prompt=user_input,
             n=no_of_images,
             size=size
