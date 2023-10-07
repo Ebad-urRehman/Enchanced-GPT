@@ -240,3 +240,23 @@ if selected_option == "History":
                 else:
                     st.image(images)
 
+        if selection == "Image Editing History":
+            # saving directory path
+            directory_path = f"files\\images\\Creation"
+            # finding all folders in directory
+            history_dir = os.listdir(directory_path)
+            history_dir_names = [dir for dir in history_dir]
+            # making a radio button based on directory names which means history days
+            selected_day = st.sidebar.radio("Select Day", history_dir_names)
+            # checking for every day which one is selected
+            for history_dir_name in history_dir_names:
+                if selected_day == history_dir_name:
+                    st.header("Image Creation History")
+                    st.info(f"Date : {history_dir_name}")
+                    # based on selected day diplaying images
+                    images = (glob.glob(f"{directory_path}\\{history_dir_name}/*.png"))
+                    if len(images) == 0:
+                        st.warning("Nothing to show here")
+                    else:
+                        st.image(images)
+
