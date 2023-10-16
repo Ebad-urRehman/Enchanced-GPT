@@ -2,7 +2,8 @@ import streamlit as st
 import glob
 import json
 
-
+st.markdown(f"<h1 style='text-align: center;'>✨Enhanced GPT Model✨</h1>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='text-align: left;'>History🧾🔁</h2>", unsafe_allow_html=True)
 files_path = f"files/history"
 # extracting all files from directory filepath
 files = (glob.glob(f"{files_path}/*.json"))

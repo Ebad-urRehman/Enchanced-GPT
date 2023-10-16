@@ -24,13 +24,13 @@ year = time.strftime("%Y", current_time)
 date = f"{day}-{month}-{year}"
 
 # inputting a role from user
-roles = ["Default Role", "Custom Role"]
-temperature = st.sidebar.slider("Temprature", 0.0, 1.0, 0.5, 0.01)
-number_of_tokens = st.sidebar.slider("Number of Tokens", 1000, 8000, 1000, 200)
+roles = ["🎞 Default Role", "📲 Custom Role"]
+temperature = st.sidebar.slider("Temprature 🌡", 0.0, 1.0, 0.5, 0.01)
+number_of_tokens = st.sidebar.slider("Number of Tokens 🔢", 1000, 8000, 1000, 200)
 role_selection = st.sidebar.selectbox("Enter the role here", roles)
-if role_selection == "Default Role":
+if role_selection == "🎞 Default Role":
     role ="You are a helpful assistant."
-if role_selection == "Custom Role":
+if role_selection == "📲 Custom Role":
     role = st.sidebar.text_input("Assign a Role")
 
 # check if user is signed in it can be check by if there is a file named with account.json already created
@@ -65,32 +65,22 @@ else:
                 except json.JSONDecodeError as e:
                     print(f"JSON decoding error: {e}")
 
-    # applying centered styling to text
-    st.markdown("""
-    <style>
-        .css-10trblm {
-            text-align: center;
-        }
-    
-    </style>
-    """, unsafe_allow_html=True)
     # writing the date
     st.markdown(f"<p style='text-align: right;'>{date}</p>", unsafe_allow_html=True)
-    st.title("Enhanced GPT Model")
+    st.markdown(f"<h1 style='text-align: center;'>✨Enhanced GPT Model✨</h1>", unsafe_allow_html=True)
+
 # default text before chat
 chat_default_text = f"""👋 Aslam u Alaikum!\n
 🛑 I am Enhanced GPT\n
 💻 Write a Text and get an Answer\n
-🎤 Record a Question and get an Answer\n
-🔈 I can read these Answers for you\n
-📒 Upload a PDF File and ask questions about it\n
-🔍 I can search information for you\n
-🙂 No need now to find specific information in a large file
+🔈 Give a custom Role to Enhanced GPT to behave accordingly\n
+🧾🔁 You can Found old responses in History tab\n
 """
 
 # typewriter_chat_default = functions.typewriter_text(chat_default_text)
 st.info(chat_default_text)
 user_input = ""
+
 
 # extracting file paths for each json history data file
 files_path = f"../files/history"
@@ -126,6 +116,25 @@ if 'user_input' not in st.session_state:
 user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
 st.session_state.user_input[i] = user_input
 
+col1, col2 = st.columns(2)
+
+if user_input == "":
+    with col1:
+        st.info("""📑User Guide:\n
+🌡🔼 Temperature  1 means more ⚛ Creativity(predict more) in responses\n
+🌡⏬Temperature 0 means more 🎯 accuracy(accurate information) in responses\n
+More number of tokens means larger prompts(questions) and responses(answers by bot)\n
+You can also change role in sidebar 👈\n
+""")
+    with col2:
+        # st.image("ai.png")
+        st.info("""Custom Roles:\n
+   Storyteller Role:\n
+   Usage Example: "Switch to storyteller mode. Tell me a mystical adventure tale."\n
+   Teacher Role:\n
+   Usage Example: "Act as a teacher. Explain the theory of relativity in simple terms."\n
+   Usage Example: "Switch to programmer mode. Can you help me debug this Python code?"\n
+""")
 # if we get some input from the user
 if user_input != "":
     # creating instance of class chatbot

@@ -4,7 +4,17 @@ from PyPDF2 import PdfReader
 from nltk.tokenize import word_tokenize
 nltk.download('punkt')
 import functions
-st.title("PDF Reader")
+
+# default text before chat
+chat_default_text = f"""👋 Aslam u Alaikum!\n
+📒 Upload a PDF File and ask questions about it\n
+🔍 I can search information for you\n
+🙂 No need now to find specific information in a large file
+"""
+
+st.markdown(f"<h1 style='text-align: center;'>✨Enhanced GPT Model✨</h1>", unsafe_allow_html=True)
+st.subheader("PDF Reader 📕")
+st.info(chat_default_text)
 # if pdf file uploader button is not clicked
 if 'button_clicked' not in st.session_state:
     st.session_state.button_clicked = False
@@ -18,7 +28,7 @@ if file:
     # getting data from pdf with the help of reader.pages function
     pdf_data_list = [page.extract_text() for page in reader.pages]
 
-    if st.button("Show PDF TEXT"):
+    if st.button("Show PDF TEXT 👀"):
         st.session_state.button_clicked = True
         pdf_data = ""
     if st.session_state.button_clicked:
