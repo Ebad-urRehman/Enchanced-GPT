@@ -60,10 +60,10 @@ class Chatbot:
     def __init__(self):
         openai.api_key = os.getenv("OPEN AI KEY")
 
-    def get_response(self, user_input, messages, no_of_tokens, temp):
+    def get_response(self, user_input, messages, no_of_tokens, temp, selected_model):
         messages.append({"role": "user", "content": user_input})
         chat = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=selected_model,
             messages=messages,
             # prompt = user_input,
             max_tokens=no_of_tokens,

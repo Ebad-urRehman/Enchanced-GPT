@@ -25,13 +25,20 @@ date = f"{day}-{month}-{year}"
 
 # inputting a role from user
 roles = ["🎞 Default Role", "📲 Custom Role"]
+models = ["🚀GPT-3.5-Turbo", "🤖GPT-4"]
 temperature = st.sidebar.slider("Temprature 🌡", 0.0, 1.0, 0.5, 0.01)
 number_of_tokens = st.sidebar.slider("Number of Tokens 🔢", 1000, 8000, 1000, 200)
 role_selection = st.sidebar.selectbox("Enter the role here", roles)
+model_selection = st.sidebar.radio("Select model : ", models)
 if role_selection == "🎞 Default Role":
     role ="You are a helpful assistant."
-if role_selection == "📲 Custom Role":
+elif role_selection == "📲 Custom Role":
     role = st.sidebar.text_input("Assign a Role")
+
+if model_selection == "🚀GPT-3.5-Turbo":
+    model = "gpt-3.5-turbo"
+else:
+    model = "gpt-4"
 
 # check if user is signed in it can be check by if there is a file named with account.json already created
 if not os.path.exists("files/account.json"):
@@ -144,7 +151,7 @@ if user_input != "":
         {"role": "system", "content": f"{role}"},
     ]
     # getting response of user input
-    chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature)
+    chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature, model)
 
     # updating history dataframe
     history_dataframe.append({
