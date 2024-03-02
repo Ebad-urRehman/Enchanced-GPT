@@ -17,6 +17,7 @@ options = ["Generate new images", "History"]
 
 selected_option = st.sidebar.radio("", options)
 i = 0
+images = None
 if selected_option == "Generate new images":
     selection_image_type = ["🖌️ Create an Image", "✏️ Edit an Image", "🔄 Make Variations of Image"]
     selection = st.sidebar.selectbox("Selection Menu", selection_image_type)

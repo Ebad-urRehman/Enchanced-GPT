@@ -3,6 +3,7 @@ import openai
 import pandas
 import time
 from pathlib import Path
+import os
 
 
 # ------------------------------------------FUNCTIONS CODE-------------------------------------
@@ -12,8 +13,8 @@ from pathlib import Path
 class Chatbot:
     def get_seo_optimized_words(self, messages):
         try:
-            my_api_key = st.secrets.API_KEY
-            # my_api_key = os.getenv("OPEN AI KEY")
+            # my_api_key = st.secrets.API_KEY
+            my_api_key = os.getenv("OPEN AI KEY")
             client = openai.OpenAI(api_key=my_api_key)
             response = client.chat.completions.create(
                 model="gpt-4-vision-preview",
@@ -74,7 +75,9 @@ csv_file_name = date
 
 st.markdown(f"<p style='text-align: right;'>{date}</p>", unsafe_allow_html=True)
 st.markdown(f"<h1 style='text-align: center;'>✨Image to SEO keywords✨</h1>", unsafe_allow_html=True)
-
+st.info("""🌐Input Urls of Images\n
+📄Get Alternative texts of the Images at Specified URLs in CSV format📜
+""")
 links_input = st.text_area("Enter links here", placeholder="Enter URLs here one URL per row")
 
 # first time storing temporary dataframe to avoid any errors

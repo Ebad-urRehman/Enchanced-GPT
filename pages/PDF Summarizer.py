@@ -9,11 +9,12 @@ import functions
 chat_default_text = f"""👋 Aslam u Alaikum!\n
 📒 Upload a PDF File and ask questions about it\n
 🔍 I can search information for you\n
-🙂 No need now to find specific information in a large file
+🙂 No need now to find specific information in a large file\n
+📄 Generate Summary of a PDF file
 """
 
 st.markdown(f"<h1 style='text-align: center;'>✨Enhanced GPT Model✨</h1>", unsafe_allow_html=True)
-st.subheader("PDF Reader 📕")
+st.subheader("PDF Summarizer 📕")
 st.info(chat_default_text)
 # if pdf file uploader button is not clicked
 if 'button_clicked' not in st.session_state:
@@ -77,7 +78,8 @@ if file:
                 chatbot = functions.Chatbot()
                 no_of_tokens = 8000
                 temp = 1
-                response = chatbot.get_response(pdf_data, messages, no_of_tokens, temp)
+                model = "gpt-3.5-turbo"
+                response = chatbot.get_response(pdf_data, messages, no_of_tokens, temp, model)
                 # it auto generates summary of PDF file
                 st.header("Summary of PDF File")
                 st.session_state.old_responses.append({
