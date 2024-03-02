@@ -29,7 +29,13 @@ if selected_option == "Transcribe and Translate":
             file_path = dialog.GetPath()
 
         if file_path:
-            pass
+            progress_bar = st.progress(0)
+            model = whisper.load_model(selected_model)
+            progress_bar.progress(25)
+            result = model.transcribe(file_path, fp16=False, task='translate')
+            progress_bar.progress(75)
+            st.info(result["text"])
+            progress_bar.progress(100)
 
 if selected_option == "Auto detect and Transcribe":
     if st.button("Browse"):
