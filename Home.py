@@ -4,7 +4,6 @@ import functions
 import time
 import json
 import glob
-from streamlit_modal import Modal
 
 # i is denoting no of total number of responses here in a day
 i = 0
@@ -186,11 +185,3 @@ if user_input != "":
     # creating json history file and storing data in it
     functions.make_json_file(history_dataframe, history_file_path)
     i = i + 1
-
-
-# making modal window
-modal = Modal(key="tts Key",title="test")
-open_modal = st.sidebar.button(label='Read aloud(text to audio)')
-if open_modal:
-    with modal.container():
-        st.info("working")

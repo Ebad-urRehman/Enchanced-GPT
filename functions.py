@@ -7,6 +7,11 @@ from io import BytesIO
 from PIL import Image
 from pathlib import Path
 import base64
+from gtts import gTTS
+from googletrans import Translator
+from pydub import AudioSegment
+from pydub.playback import play
+
 
 # function for sign up if signed up
 def sign_up():
@@ -115,6 +120,35 @@ class Chatbot:
         st.write(image_urls)
         return image_urls
 
+class TextToSpeech():
+    def __init__(self):
+        self.translator = Translator()
+
+    def get_lang_dict(self):
+        dict = {"Auto Detect": "auto",
+        "عربی Arabic":"ar",
+        "Bengali بنگالی": "bn",
+        "English": "en",
+        "اردو Urdu": "ur",
+        "Hindi ہندی": "hi"
+        }
+        return dict
+    def text_to_speech(self, text, output_lang, mode):
+        if output_lang == "auto":
+            output_lang = self.translator.detect(text).lang
+        tts = gTTS(text, lang=output_lang, slow=mode)
+        file_path = "files/temp_files/temp.mp3"
+        tts.save(file_path)
+        st.audio(file_path)
+
+    def trans(self, text, input_lang, output_lang):
+        if input_lang == "auto":
+            input_lang = self.translator.detect(text).lang
+        if output_lang == "auto":
+            output_lang = "en"
+        translation = self.translator.translate(text=text, src=input_lang, dest=output_lang)
+        translated_text = translation.text
+        return translated_text
 
 def typewriter_text(text):
     typewriter_style = f"""
