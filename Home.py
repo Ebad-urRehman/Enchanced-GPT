@@ -28,7 +28,7 @@ date = f"{day}-{month}-{year}"
 roles = ["🎞 Default Role", "📲 Custom Role"]
 models = ["🚀GPT-3.5-Turbo", "🤖GPT-4"]
 temperature = st.sidebar.slider("Temprature 🌡", 0.0, 1.0, 0.5, 0.01)
-number_of_tokens = st.sidebar.slider("Number of Tokens 🔢", 1000, 8000, 1000, 200)
+number_of_tokens = st.sidebar.slider("Number of Tokens 🔢", 1000, 4096, 1000, 200)
 role_selection = st.sidebar.selectbox("Enter the role here", roles)
 model_selection = st.sidebar.radio("Select model : ", models)
 if role_selection == "🎞 Default Role":

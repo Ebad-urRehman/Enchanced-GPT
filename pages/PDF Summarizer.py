@@ -68,7 +68,7 @@ if file:
                 pdf_data += user_input
             tokenized_text_total = word_tokenize(pdf_data)
             total_tokens = len(tokenized_text_total)
-            if total_tokens > 8000:
+            if total_tokens > 4096:
                 st.warning("Please Enter a Question of about 700-1000 words")
             else:
                 messages = [
@@ -76,9 +76,9 @@ if file:
                 ]
 
                 chatbot = functions.Chatbot()
-                no_of_tokens = 8000
+                no_of_tokens = 4096
                 temp = 1
-                model = "gpt-3.5-turbo"
+                model = "gpt-4"
                 response = chatbot.get_response(pdf_data, messages, no_of_tokens, temp, model)
                 # it auto generates summary of PDF file
                 st.header("Summary of PDF File")
