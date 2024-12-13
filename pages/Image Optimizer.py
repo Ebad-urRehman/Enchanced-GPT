@@ -14,10 +14,10 @@ class Chatbot:
     def get_seo_optimized_words(self, messages):
         try:
             # my_api_key = st.secrets.API_KEY
-            my_api_key = os.getenv("OPEN AI KEY")
+            my_api_key = os.getenv("OPENAI_KEY")
             client = openai.OpenAI(api_key=my_api_key)
             response = client.chat.completions.create(
-                model="gpt-4-vision-preview",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=300,
             )
@@ -122,14 +122,17 @@ if st.button("Get Alt Texts"):
                     },
                 }
                 messages[0]['content'].append(new_dict)
+                print(messages)
                 response = seo_bot.get_seo_optimized_words(messages)
+                print(f'gett teh response {response}')
                 if response:
                     valid_url_list.append(url)
                     valid_response_list.append(response)
                 else:
                     invalid_url_list.append(url)
                     invalid_response_list.append("Invalid URL")
-            except:
+            except Exception as e:
+                print(f'an error occured {e}')
                 invalid_url_list.append(url)
                 invalid_response_list.append("Invalid URL")
 
