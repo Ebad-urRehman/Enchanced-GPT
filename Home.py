@@ -4,7 +4,7 @@ import functions
 import time
 import json
 import glob
-import styles
+import home_utils
 
 # i is denoting no of total number of responses here in a day
 i = 0
@@ -80,19 +80,10 @@ else:
                     print(f"JSON decoding error: {e}")
 
     # writing the date
-    st.markdown(f"<p style='text-align: right;'>{date}</p>", unsafe_allow_html=True)
-    st.markdown(f"<h1 style='text-align: center;'>✨Enhanced GPT Model✨</h1>", unsafe_allow_html=True)
+    st.markdown(home_utils.date_formatted(date), unsafe_allow_html=True)
+    st.markdown(home_utils.heading_formatted('✨Enhanced GPT Model✨'), unsafe_allow_html=True)
 
-# default text before chat
-chat_default_text = f"""👋 Aslam u Alaikum!\n
-🛑 I am Enhanced GPT\n
-💻 Write a Text and get an Answer\n
-🔈 Give a custom Role to Enhanced GPT to behave accordingly\n
-🧾🔁 You can Found old responses in History tab\n
-"""
-
-# typewriter_chat_default = functions.typewriter_text(chat_default_text)
-st.info(chat_default_text)
+st.info(home_utils.chat_default_text())
 user_input = ""
 
 
@@ -107,50 +98,14 @@ json_history_files = [file.replace("/", "\\") for file in json_history_files]
 formatted_time = time.strftime("%I:%M %p", current_time)
 
 # creating input box styling
-st.markdown(f"""
-<style>
-.stTextArea{{
-        position: fixed;
-        bottom: 0;
-        z-index: 3;
-        line-height: 9.6;
-        padding-bottom: 9rem;
-        caret-color: rgb(250, 250, 250);
-        color: rgb(250, 250, 250);
-        border:0px solid white;
-        border-right: 2px solid #000
-        padding: 0px;
-        max-height: 100px;
-        }}
-            
-            
-#hidden_file_input {{
-            display: None;
-            }}
-
-#hidden_file_input_label {{
-            position: fixed;
-  bottom: 0;
-  margin-bottom: 1rem;
-  height: 15vh;
-  margin-left: 0;
-  width: 50px;
- }}
-    </style>
-""", unsafe_allow_html=True)
+st.markdown(home_utils.styles['textAreaStyle'], unsafe_allow_html=True)
 # creating input box
 if 'user_input' not in st.session_state:
     st.session_state.user_input = {}
 
-
 user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
 
-
-         
-
 uploaded_file = st.file_uploader("Choose a file", key="hidden_file_input", label_visibility="collapsed")
-
-
 
 st.session_state.user_input[i] = user_input
  
@@ -158,21 +113,10 @@ col1, col2 = st.columns(2)
 
 if user_input == "":
     with col1:
-        st.info("""📑User Guide:\n
-🌡🔼 Temperature  1 means more ⚛ Creativity(predict more) in responses\n
-🌡⏬Temperature 0 means more 🎯 accuracy(accurate information) in responses\n
-More number of tokens means larger prompts(questions) and responses(answers by bot)\n
-You can also change role in sidebar 👈\n
-""")
+        st.info(home_utils.user_guide1())
     with col2:
         # st.image("ai.png")
-        st.info("""Custom Roles:\n
-   Storyteller Role:\n
-   Usage Example: "Switch to storyteller mode. Tell me a mystical adventure tale."\n
-   Teacher Role:\n
-   Usage Example: "Act as a teacher. Explain the theory of relativity in simple terms."\n
-   Usage Example: "Switch to programmer mode. Can you help me debug this Python code?"\n
-""")
+        st.info(home_utils.user_guide2())
         
 
 # if we get some input from the user

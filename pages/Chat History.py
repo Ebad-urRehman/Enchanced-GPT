@@ -21,7 +21,7 @@ total_files = len(files)
 try:
     for i in range(total_files):
         if selection == radio_buttons[i]:
-            with open(rf"files\history\{radio_buttons[i]}.json", "r") as file:
+            with open(rf"files/history/{radio_buttons[i]}.json", "r") as file:
                 json_data = json.load(file)
             total_responses = len(json_data)
             st.header(f"{json_data[0][f'date']}")

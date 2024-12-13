@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import OpenAI
 import streamlit as st
 import json
 import requests
@@ -8,7 +8,7 @@ from PIL import Image
 from pathlib import Path
 import base64
 from gtts import gTTS
-from googletrans import Translator
+# from googletrans import Translator
 from pydub import AudioSegment
 from pydub.playback import play
 
@@ -25,7 +25,7 @@ def sign_up():
         day = day.text_input("Enter Day", placeholder="Enter Day")
         mounth = mounth.text_input("Enter Mounth", placeholder="Enter Mounth")
         year = year.text_input("Enter Year", placeholder="Enter Year")
-        dob = f"{day}\{mounth}\{year}"
+        dob = f"{day}/{mounth}/{year}"
         submit_button = st.form_submit_button("Submit")
         if submit_button:
             if f_name != "" and l_name != "" and email_ad != "" and day != "" and mounth != "" and year != "":
@@ -63,25 +63,31 @@ def sign_up():
 
 class Chatbot:
     def __init__(self):
-        openai.api_key = os.getenv("OPEN AI KEY")
-
+        self.client = OpenAI(api_key=os.getenv("OPENAI_KEY"))
     def get_response(self, user_input, messages, no_of_tokens, temp, selected_model):
         messages.append({"role": "user", "content": user_input})
-        chat = openai.ChatCompletion.create(
+        chat = self.client.chat.completions.create(
             model=selected_model,
             messages=messages,
-            # prompt = user_input,
             max_tokens=no_of_tokens,
             temperature=temp
         )
         response = chat.choices[0].message.content
-        # response = ""
-        # if user_input == "asdf":
-        #     response = "I am fine!\n How are you I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am output I am outputv I am output"
+        return response
+
+
+    def get_o1_response(self, user_input, messages, max_tokens, selected_model):
+        messages.append({"role": "user", "content": user_input})
+        chat = self.client.chat.completions.create(
+            model=selected_model,
+            messages=messages,
+            max_completion_tokens=max_tokens,
+        )
+        response = chat.choices[0].message.content
         return response
 
     def get_image(self, user_input, size, no_of_images):
-        response = openai.Image.create(
+        response = self.client.Image.create(
             prompt=user_input,
             n=no_of_images,
             size=size
@@ -98,7 +104,7 @@ class Chatbot:
 
     def edit_image(self, org_image_path, masked_img_path, user_input, size, no_of_images):
         with open(org_image_path, 'rb') as org_image_file, open(masked_img_path, 'rb') as masked_img_file:
-            response = openai.Image.create_edit(
+            response = self.client.Image.create_edit(
                 image=org_image_file,
                 mask=masked_img_file,
                 prompt=user_input,
@@ -111,7 +117,7 @@ class Chatbot:
 
     def make_variation_img(self, image_path, size, no_of_images):
         with open(image_path, 'rb') as image_file:
-            response = openai.Image.create_variation(
+            response = self.client.Image.create_variation(
                 image=image_file,
                 n=no_of_images,
                 size=size
@@ -120,35 +126,35 @@ class Chatbot:
         st.write(image_urls)
         return image_urls
 
-class TextToSpeech():
-    def __init__(self):
-        self.translator = Translator()
+# class TextToSpeech():
+#     def __init__(self):
+#         self.translator = Translator()
 
-    def get_lang_dict(self):
-        dict = {"Auto Detect": "auto",
-        "عربی Arabic":"ar",
-        "Bengali بنگالی": "bn",
-        "English": "en",
-        "اردو Urdu": "ur",
-        "Hindi ہندی": "hi"
-        }
-        return dict
-    def text_to_speech(self, text, output_lang, mode):
-        if output_lang == "auto":
-            output_lang = self.translator.detect(text).lang
-        tts = gTTS(text, lang=output_lang, slow=mode)
-        file_path = "files/temp_files/temp.mp3"
-        tts.save(file_path)
-        st.audio(file_path)
+#     def get_lang_dict(self):
+#         dict = {"Auto Detect": "auto",
+#         "عربی Arabic":"ar",
+#         "Bengali بنگالی": "bn",
+#         "English": "en",
+#         "اردو Urdu": "ur",
+#         "Hindi ہندی": "hi"
+#         }
+#         return dict
+#     def text_to_speech(self, text, output_lang, mode):
+#         if output_lang == "auto":
+#             output_lang = self.translator.detect(text).lang
+#         tts = gTTS(text, lang=output_lang, slow=mode)
+#         file_path = "files/temp_files/temp.mp3"
+#         tts.save(file_path)
+#         st.audio(file_path)
 
-    def trans(self, text, input_lang, output_lang):
-        if input_lang == "auto":
-            input_lang = self.translator.detect(text).lang
-        if output_lang == "auto":
-            output_lang = "en"
-        translation = self.translator.translate(text=text, src=input_lang, dest=output_lang)
-        translated_text = translation.text
-        return translated_text
+#     def trans(self, text, input_lang, output_lang):
+#         if input_lang == "auto":
+#             input_lang = self.translator.detect(text).lang
+#         if output_lang == "auto":
+#             output_lang = "en"
+#         translation = self.translator.translate(text=text, src=input_lang, dest=output_lang)
+#         translated_text = translation.text
+#         return translated_text
 
 def typewriter_text(text):
     typewriter_style = f"""
@@ -249,7 +255,7 @@ def img_to_bytes(img_path):
 
 def save_image(directory_name, img_name, i, image_response_link):
     st.info("Saving Image to disk")
-    save_path = f"{directory_name}\\{img_name}-{i}.png"
+    save_path = f"{directory_name}/{img_name}-{i}.png"
     download_image(image_response_link, save_path)
 
 def delete_all_images(dir):
