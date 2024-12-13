@@ -4,6 +4,7 @@ import functions
 import time
 import json
 import glob
+import styles
 
 # i is denoting no of total number of responses here in a day
 i = 0
@@ -26,11 +27,12 @@ date = f"{day}-{month}-{year}"
 
 # inputting a role from user
 roles = ["🎞 Default Role", "📲 Custom Role"]
-models = ["🚀GPT-3.5-Turbo", "🤖GPT-4"]
+models = ["🚀GPT-3.5-Turbo", "🤖GPT-4", "🪶o1-Mini", "🛠️o1-Preview"]
 temperature = st.sidebar.slider("Temprature 🌡", 0.0, 1.0, 0.5, 0.01)
 number_of_tokens = st.sidebar.slider("Number of Tokens 🔢", 1000, 4096, 1000, 200)
 role_selection = st.sidebar.selectbox("Enter the role here", roles)
 model_selection = st.sidebar.radio("Select model : ", models)
+
 if role_selection == "🎞 Default Role":
     role ="You are a helpful assistant."
 elif role_selection == "📲 Custom Role":
@@ -38,8 +40,12 @@ elif role_selection == "📲 Custom Role":
 
 if model_selection == "🚀GPT-3.5-Turbo":
     model = "gpt-3.5-turbo"
-else:
+elif model_selection == 'GPT-4':
     model = "gpt-4"
+elif model_selection == "🪶o1-Mini":
+    model = "o1-mini"
+elif model_selection == "🛠️o1-Preview":
+    model = "o1-preview"
 
 # check if user is signed in it can be check by if there is a file named with account.json already created
 if not os.path.exists("files/account.json"):
@@ -116,14 +122,38 @@ st.markdown(f"""
         padding: 0px;
         max-height: 100px;
         }}
+            
+            
+#hidden_file_input {{
+            display: None;
+            }}
+
+#hidden_file_input_label {{
+            position: fixed;
+  bottom: 0;
+  margin-bottom: 1rem;
+  height: 15vh;
+  margin-left: 0;
+  width: 50px;
+ }}
     </style>
 """, unsafe_allow_html=True)
 # creating input box
 if 'user_input' not in st.session_state:
     st.session_state.user_input = {}
-user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
-st.session_state.user_input[i] = user_input
 
+
+user_input = st.text_area("", placeholder="Send a Message", key=f".stTextArea{i}")
+
+
+         
+
+uploaded_file = st.file_uploader("Choose a file", key="hidden_file_input", label_visibility="collapsed")
+
+
+
+st.session_state.user_input[i] = user_input
+ 
 col1, col2 = st.columns(2)
 
 if user_input == "":
@@ -143,16 +173,31 @@ You can also change role in sidebar 👈\n
    Usage Example: "Act as a teacher. Explain the theory of relativity in simple terms."\n
    Usage Example: "Switch to programmer mode. Can you help me debug this Python code?"\n
 """)
+        
+
 # if we get some input from the user
 if user_input != "":
     # creating instance of class chatbot
     chat = functions.Chatbot()
+
+    if uploaded_file:
+        file_data = uploaded_file.getvalue()
+        user_input = f'Here is content from a file {file_data} I want to ask : {user_input}'
+
     # assigning a role
-    messages = [
-        {"role": "system", "content": f"{role}"},
-    ]
-    # getting response of user input
-    chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature, model)
+    if model == 'gpt-3.5-turbo' or model=='gpt-4':
+        messages = [
+            {"role": "system", "content": f"{role} + maybe sometimes you are provided with some text from files, read that content and answer about that files"},
+        ]
+        # getting response of user input
+        chat_response = chat.get_response(user_input, messages, number_of_tokens, temperature, model)   
+    else:
+        messages = []
+        chat_response = chat.get_o1_response(user_input, messages, number_of_tokens, model)
+
+    
+
+    
 
     # updating history dataframe
     history_dataframe.append({
