@@ -3,7 +3,7 @@ import streamlit as st
 from PyPDF2 import PdfReader
 from nltk.tokenize import word_tokenize
 nltk.download('punkt')
-import functions
+import pages.functions as functions
 
 # default text before chat
 chat_default_text = f"""👋 Aslam u Alaikum!\n

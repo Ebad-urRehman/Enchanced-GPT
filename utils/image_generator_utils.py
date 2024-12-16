@@ -6,7 +6,7 @@ from PIL import Image
 import requests
 import streamlit as st
 from openai import OpenAI
-from account_settings import get_api_key
+from utils.account_settings import get_api_key
 
 class Chatbot():
     def __init__(self):

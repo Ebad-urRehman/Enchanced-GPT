@@ -1,6 +1,5 @@
 import streamlit as st
 from streamlit_cookies_controller import CookieController
-import os
 
 
 def store_account_info():

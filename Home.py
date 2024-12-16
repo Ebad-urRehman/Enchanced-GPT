@@ -1,11 +1,11 @@
 import os
 import streamlit as st
-import functions
+import pages.functions as functions
 import time
 import json
 import glob
 import utils.home_utils as home_utils
-from account_settings import validate_account_info, store_account_info, get_user_name
+from utils.account_settings import validate_account_info, store_account_info, get_user_name
 
 # i is denoting no of total number of responses here in a day
 i = 0

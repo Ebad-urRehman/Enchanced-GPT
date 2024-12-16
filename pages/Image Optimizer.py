@@ -4,7 +4,7 @@ import pandas
 import time
 from pathlib import Path
 import os
-from account_settings import get_api_key
+from utils.account_settings import get_api_key
 
 # ------------------------------------------FUNCTIONS CODE-------------------------------------
 
@@ -65,15 +65,16 @@ output_csv = None
 i = 1
 # j is used to calculate invalid number of urls
 j = 0
-response = None
+response = None 
 
 # download button state
 button_clicked = False
 
 csv_file_name = date
 
+
 st.markdown(f"<p style='text-align: right;'>{date}</p>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;'>✨Image to SEO keywords✨</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;'>🖼️Image to SEO keywords⚙️🔧</h1>", unsafe_allow_html=True)
 st.info("""🌐Input Urls of Images\n
 📄Get Alternative texts of the Images at Specified URLs in CSV format📜
 """)

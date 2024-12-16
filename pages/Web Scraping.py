@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 import utils.scraping_utils as utils
 
-
+st.header('🔍🌐Web Scraping📜')
 url = st.text_input('Enter Url here')
 
 st.info('Example url : https://www.productreview.com.au/listings/shopify')

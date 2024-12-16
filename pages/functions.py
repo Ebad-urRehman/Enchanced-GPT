@@ -11,8 +11,7 @@ import base64
 # from googletrans import Translator
 from pydub import AudioSegment
 from pydub.playback import play
-from streamlit_cookies_manager import EncryptedCookieManager
-from account_settings import get_api_key
+from utils.account_settings import get_api_key
 
 
 
