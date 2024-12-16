@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-import pages.functions as functions
+import utils.functions as functions
 import time
 import json
 import glob
@@ -54,6 +54,9 @@ if not validate_account_info():
 
 else:
     full_name = get_user_name()
+
+    if not os.path.exists('files/history/'):
+        os.makedirs('./files/history/')
 
     # creating a json file of today's date to store history if is not already created
     history_file_path = f"files/history/{date}.json"
