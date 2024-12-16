@@ -5,6 +5,7 @@ import time
 import json
 import glob
 import utils.home_utils as home_utils
+from account_settings import validate_account_info, store_account_info, get_user_name
 
 # i is denoting no of total number of responses here in a day
 i = 0
@@ -47,18 +48,12 @@ elif model_selection == "🪶o1-Mini":
 elif model_selection == "🛠️o1-Preview":
     model = "o1-preview"
 
-# check if user is signed in it can be check by if there is a file named with account.json already created
-if not os.path.exists("files/account.json"):
-    # calling function that takes user data and store in json file
-    functions.sign_up()
 
-# if account is already created directly start the chat
+if not validate_account_info():
+    store_account_info()
+
 else:
-    # retrieving user name and information to use in this software
-    user_data_path = f"files/account.json"
-    with open(f"{user_data_path}", "r") as json_file:
-        user_data = json.load(json_file)
-    full_name = user_data[0]["full_name"]
+    full_name = get_user_name()
 
     # creating a json file of today's date to store history if is not already created
     history_file_path = f"files/history/{date}.json"

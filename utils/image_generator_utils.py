@@ -6,12 +6,13 @@ from PIL import Image
 import requests
 import streamlit as st
 from openai import OpenAI
-
+from account_settings import get_api_key
 
 class Chatbot():
     def __init__(self):
+        self.api_key = get_api_key()
         self.client = OpenAI(
-            api_key=os.getenv("OPENAI_KEY")
+            api_key=self.api_key
         )
 
 
