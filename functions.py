@@ -7,7 +7,7 @@ from io import BytesIO
 from PIL import Image
 from pathlib import Path
 import base64
-from gtts import gTTS
+# from gtts import gTTS
 # from googletrans import Translator
 from pydub import AudioSegment
 from pydub.playback import play
