@@ -101,6 +101,5 @@ tzlocal==5.2
 urllib3==2.2.1
 validators==0.22.0
 watchdog==4.0.0
-wxPython @ file:///home/Ebad-ur-Rehman/Downloads/wxPython-4.2.2-cp312-cp312-linux_x86_64.whl#sha256=da38f171982763c72bdd2cacaf7b662ad3bc93acd6aae8b311653256d8107961
 yarl==1.9.4
 zipp==3.17.0
