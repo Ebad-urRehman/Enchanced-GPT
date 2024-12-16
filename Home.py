@@ -4,7 +4,7 @@ import functions
 import time
 import json
 import glob
-import home_utils
+import utils.home_utils as home_utils
 
 # i is denoting no of total number of responses here in a day
 i = 0
