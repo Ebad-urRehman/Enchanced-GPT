@@ -2,10 +2,18 @@ from datetime import date
 import os
 import requests
 
-def scrape_website(url):
+def scrape_website(url, format):
     url = f'https://r.jina.ai/{url}'
+
+    format = 'markdown' if format == 'md' else format
+    
+    headers = {
+    'Authorization': 'Bearer jina_ac6cb1a9516e4ff499faff84cbd3d6ceD9Djg30pUydK037ZUfJgQhM-oqkD',
+    'X-Return-Format': f'{format}'
+    }
+
     try:
-        response = requests.get(url)
+        response = requests.get(url, headers=headers)
         if response.status_code == 200:
             return response
         else:
