@@ -1,10 +1,10 @@
 import streamlit as st
 from streamlit_cookies_controller import CookieController
-
+from utils.mail_utilities import send_email
 
 def store_account_info():
     with st.form('Store User Account Info'):
-        email = st.text_input('Email Adress(Optional : For future app updates)')
+        email = st.text_input('Email Adress(For future app updates)')
         name = st.text_input('Enter your name')
         api_key = st.text_input('Enter you API key(You can add/change this later)')
 
@@ -13,15 +13,15 @@ def store_account_info():
         submitted = st.form_submit_button('Save Info')
 
         if submitted:
-            if email != '' and not email.endswith('@gmail.com'):
-                # send email to myself to be impelemented
-                pass
-            
 
             if name != '' and api_key != '':
-                controller.set('username', name)
-                controller.set('apikey', api_key)
-                st.success('Info submitted successfully')
+                if email != '' and email.endswith('@gmail.com'):
+                    controller.set('username', name)
+                    controller.set('apikey', api_key)
+                    send_email(name=name, email=email)
+                    st.success('Info submitted successfully')
+                else:
+                    st.warning('Email must be valid')
             else:
                 st.warning('Name and API field must not be empty')
 
