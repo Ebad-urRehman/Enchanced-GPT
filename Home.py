@@ -168,6 +168,7 @@ if user_input != "":
         st.markdown("""Enhanced GPT""")
         st.write(response["chat_response"])
         st.markdown(f"<p style='text-align: right;'>{st.session_state.time_list[j]}</p>", unsafe_allow_html=True)
+        
         j = j + 1
     # creating json history file and storing data in it
     functions.make_json_file(history_dataframe, history_file_path)

@@ -3,7 +3,6 @@ import openai
 import pandas
 import time
 from pathlib import Path
-import os
 from utils.account_settings import get_api_key
 
 # ------------------------------------------FUNCTIONS CODE-------------------------------------
@@ -11,11 +10,14 @@ from utils.account_settings import get_api_key
 
 # making a class chatbot
 class Chatbot:
+    def __init__(self):
+        self.api_key = get_api_key()
+        self.client = openai.OpenAI(api_key=self.api_key)
+
+        
     def get_seo_optimized_words(self, messages):
         try:
-            my_api_key = get_api_key()
-            client = openai.OpenAI(api_key=my_api_key)
-            response = client.chat.completions.create(
+            response = self.client.chat.completions.create(
                 model="gpt-4o",
                 messages=messages,
                 max_tokens=300,

@@ -1,6 +1,8 @@
+from gtts import gTTS
 import streamlit as st
 import glob
 import json
+import os
 
 st.markdown(f"<h1 style='text-align: center;'>✨Enhanced GPT Model✨</h1>", unsafe_allow_html=True)
 st.markdown(f"<h2 style='text-align: left;'>History🧾🔁</h2>", unsafe_allow_html=True)
@@ -26,9 +28,21 @@ try:
             total_responses = len(json_data)
             st.header(f"{json_data[0][f'date']}")
             for i in range(total_responses):
+                response = json_data[i]['chat_response']
                 st.info(f"{json_data[i]['user_input']}")
                 st.markdown(f"<p style='text-align: right;'>{json_data[i]['time']}</p>", unsafe_allow_html=True)
-                st.write(f"{json_data[i]['chat_response']}")
+                st.write(f"{response}")
                 st.markdown(f"<p style='text-align: right;'>{json_data[i]['time']}</p>", unsafe_allow_html=True)
+                if st.button("▶️", key=i):
+                    tts = gTTS(response)
+        
+                    temp_file = "temp_audio.mp3"
+                    tts.save(temp_file)
+                    
+                    audio_file = open(temp_file, "rb").read()
+                    st.audio(audio_file, format="audio/mp3")
+                    
+                    os.remove(temp_file)
+
 except json.JSONDecodeError as e:
     st.warning("No Chat on this date")
