@@ -143,15 +143,6 @@ if model_selected == "Dall.E-2":
             elif selection_size == "1024x1024":
                 size = "1024x1024"
 
-            # style select
-            select_style = ["Natural", "Vivid"]
-            selected_style = st.sidebar.radio("Select Style", select_style)
-
-            if selected_style == "Natural":
-                style = "natural"
-            elif selected_style == "Vivid":
-                style = "vivid"
-
             # creating an bot object
             image_bot = utils.Chatbot()
 
@@ -163,7 +154,7 @@ if model_selected == "Dall.E-2":
                 if user_input == "":
                     st.warning("Please Enter some Prompt")
                 else:
-                    image_bot_response = image_bot.get_image_dall_e2(user_input, size, style)
+                    image_bot_response = image_bot.get_image_dall_e2(user_input, size)
                     # for j, image_response_link in enumerate(image_bot_response):
                     img_name = f"{date}"
 
