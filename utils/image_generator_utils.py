@@ -27,12 +27,11 @@ class Chatbot():
         image_url = response.data[0].url
         return image_url
     
-    def get_image_dall_e2(self, user_input, size, style):
+    def get_image_dall_e2(self, user_input, size):
         response = self.client.images.generate(
             model='dall-e-2',
             prompt=user_input,
             size=size,
-            style=style,
             n=1,
         )
         image_url = response.data[0].url

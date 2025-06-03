@@ -1,0 +1,30 @@
+[
+    {
+        "time": "12:25 PM",
+        "date": "03 : June : 2025",
+        "response_no": 0,
+        "user_input": "hi",
+        "chat_response": null
+    },
+    {
+        "time": "12:26 PM",
+        "date": "03 : June : 2025",
+        "response_no": 1,
+        "user_input": "Assalam",
+        "chat_response": "Wa alaikum assalam! How can I assist you today?"
+    },
+    {
+        "time": "12:32 PM",
+        "date": "03 : June : 2025",
+        "response_no": 2,
+        "user_input": "Salam",
+        "chat_response": "Wa alaikum assalam! How can I assist you today?"
+    },
+    {
+        "time": "12:33 PM",
+        "date": "03 : June : 2025",
+        "response_no": 3,
+        "user_input": "Salam",
+        "chat_response": "Salam! How can I assist you today?"
+    }
+]

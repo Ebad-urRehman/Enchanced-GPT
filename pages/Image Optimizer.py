@@ -82,6 +82,17 @@ st.info("""🌐Input Urls of Images\n
 """)
 links_input = st.text_area("Enter links here", placeholder="Enter URLs here one URL per row")
 
+st.markdown(f"<text style='text-align: center;'>Example Input</text>", unsafe_allow_html=True)
+st.code("""
+https://image.shoplc.com/products/75/5/7552292/7552292.jpg?w=70&h=70
+https://image.shoplc.com/products/34/1/3418227/3418227.jpg?w=70&h=70
+https://image.shoplc.com/products/38/8/3883671/3883671.jpg
+https://image.shoplc.com/products/41/7/4176015/4176015.jpg
+https://image.shoplc.com/products/64/8/6484703/6484703.jpg
+""", language='javascript')
+
+
+
 # first time storing temporary dataframe to avoid any errors
 if "mydataframe" not in st.session_state:
     st.session_state.mydataframe = pandas.DataFrame({"A": [1, 2, 3], "B": [4, 5, 6]})

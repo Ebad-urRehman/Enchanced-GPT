@@ -41,18 +41,12 @@ def validate_account_info():
     
 
 def get_user_name():
-    controller = CookieController()
-
-    user_name = controller.get('username')
-
+    user_name = st.secrets["user_name"]["user_name"]
     return user_name
 
 
 def get_api_key():
-    controller = CookieController()
-
-    api_key = controller.get('apikey')
-
+    api_key = st.secrets["my_api"]["api_key"]
     return api_key
 
 
