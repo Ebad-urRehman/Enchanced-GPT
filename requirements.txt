@@ -97,7 +97,7 @@ toolz==0.12.1
 torch==2.2.1
 tornado==6.4
 tqdm==4.66.2
-triton==2.3.1
+# triton==2.3.1
 typing_extensions==4.12.2
 tzdata==2024.1
 tzlocal==5.2
